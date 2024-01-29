@@ -12,10 +12,7 @@ const App = () => {
 	const onPressLogin = () => {
 		// Do something about login operation
 	};
-	const [state, setState] = useState({
-		email: "",
-		password: "",
-	});
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}> Login Screen</Text>

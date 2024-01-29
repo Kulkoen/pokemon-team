@@ -7,16 +7,56 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { Link } from "expo-router";
+import axios from "axios";
 
-export default function Page() {
-	const [state, setState] = useState({
-		email: "",
-		password: "",
-	});
+export default function RegisterPage({ props }) {
+	const [name, setName] = useState("");
+	const [nameVerify, setNameVerify] = useState(false);
 
-	const onPressRegister = () => {
-		// Do something about signup operation
-	};
+	const [email, setEmail] = useState("");
+	const [emailVerify, setEmailVerify] = useState(false);
+
+	const [password, setPassword] = useState("");
+	const [passwordVerify, setPasswordVerify] = useState(false);
+
+	function handleRegistration() {
+		const userData = { name: name, email, password };
+		axios
+			.post("http://172.22.4.217:5000/register", userData)
+			.then((res) => console.log(res.data))
+			.catch((e) => console.log(e));
+	}
+
+	function handleName(e) {
+		const nameVar = e.nativeEvent.text;
+		setName(nameVar);
+		setNameVerify(false);
+		if (nameVar.length > 1) {
+			setNameVerify(true);
+		}
+	}
+
+	function handleEmail(e) {
+		// console.log(e.nativeEvent.text);
+		const emailVar = e.nativeEvent.text;
+		setEmail(emailVar);
+		setEmailVerify(false);
+		if (/^[\w.%+-]+@[\w.-]+\.[a-zA-z]{1,}$/.test(emailVar)) {
+			setEmail(emailVar);
+			setEmailVerify(true);
+		}
+	}
+
+	function handlePass(e) {
+		// console.log(e.nativeEvent.text);
+		const passwordVar = e.nativeEvent.text;
+		setPassword(passwordVar);
+		setPasswordVerify(false);
+		if (/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(passwordVar)) {
+			setPassword(passwordVar);
+			setPasswordVerify(true);
+		}
+	}
 
 	return (
 		<View style={styles.container}>
@@ -26,27 +66,41 @@ export default function Page() {
 					style={styles.inputText}
 					placeholder="Name"
 					placeholderTextColor="#003f5c"
-					onChangeText={(text) => setState({ name: text })}
+					onChange={(e) => handleName(e)}
 				/>
 			</View>
+			{name.length < 1 ? null : nameVerify ? null : (
+				<Text style={{ color: "red" }}>Name must be more than 1 character</Text>
+			)}
 			<View style={styles.inputView}>
 				<TextInput
 					style={styles.inputText}
 					placeholder="Email"
 					placeholderTextColor="#003f5c"
-					onChangeText={(text) => setState({ email: text })}
+					onChange={(e) => handleEmail(e)}
 				/>
 			</View>
+			{email.length < 1 ? null : emailVerify ? null : (
+				<Text style={{ color: "red" }}>Email must be valid</Text>
+			)}
 			<View style={styles.inputView}>
 				<TextInput
 					style={styles.inputText}
 					secureTextEntry
 					placeholder="Password"
 					placeholderTextColor="#003f5c"
-					onChangeText={(text) => setState({ password: text })}
+					onChange={(e) => handlePass(e)}
 				/>
 			</View>
-			<TouchableOpacity onPress={onPressRegister} style={styles.registerBtn}>
+			{password.length < 1 ? null : passwordVerify ? null : (
+				<Text style={{ color: "red" }}>
+					Password must contain Uppercase and Lowercase and must be 6 or more
+					characters{" "}
+				</Text>
+			)}
+			<TouchableOpacity
+				onPress={() => handleRegistration()}
+				style={styles.registerBtn}>
 				<Text style={styles.loginText}>REGISTER</Text>
 			</TouchableOpacity>
 			<TouchableOpacity>

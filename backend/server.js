@@ -2,9 +2,11 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 
-const port = 3000;
+const port = 5000;
 const mongoURL =
 	"mongodb+srv://keefeoen:admin@cluster0.mkd96tq.mongodb.net/?retryWrites=true&w=majority";
+
+app.use(express.json());
 
 // Connect to the MongoDB database using mongoose
 mongoose
@@ -21,6 +23,11 @@ mongoose
 // Import the user details schema and model
 require("./UserDetails");
 const User = mongoose.model("UserInfo");
+
+// Define a GET route for the '/' endpoint
+app.get("/", (req, res) => {
+	res.send("Hello from the backend");
+});
 
 // Define a POST route for the '/register' endpoint
 app.post("/register", async (req, res) => {
@@ -46,11 +53,6 @@ app.post("/register", async (req, res) => {
 	} catch (error) {
 		res.send({ status: "ERROR", error: error });
 	}
-});
-
-// Define a GET route for the '/' endpoint
-app.get("/", (req, res) => {
-	res.send("Hello from the backend");
 });
 
 // Start the server and listen on the port
