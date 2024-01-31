@@ -33,7 +33,7 @@ export default function MainArea({}) {
 				setPokemon({
 					name: pokemonName,
 					img: res.data.sprites.front_default,
-					type: res.data.types[0].name,
+					// type: res.data.types[],
 				});
 				setPokemonChosen(true);
 			})
@@ -42,7 +42,7 @@ export default function MainArea({}) {
 			});
 	};
 
-	const addPokemon = () => {};
+	// const addPokemon = () => {};
 
 	return (
 		<View style={styles.container}>
@@ -53,7 +53,7 @@ export default function MainArea({}) {
 					placeholder="Search..."
 					onChange={(e) => setPokemonName(e.nativeEvent.text)}
 				/>
-				<TouchableOpacity onPress={searchPokemon}>
+				<TouchableOpacity style={styles.searchButton} onPress={searchPokemon}>
 					<Text>Search</Text>
 				</TouchableOpacity>
 			</View>
@@ -66,11 +66,11 @@ export default function MainArea({}) {
 						<Image
 							source={{ uri: pokemon.img }}
 							style={{
-								width: 200,
-								height: 200,
+								width: 300,
+								height: 300,
 							}}
 						/>
-						<Text>Type: {pokemon.type}</Text>
+						{/* <Text>Type: {pokemon.type}</Text> */}
 					</>
 				)}
 			</View>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	title: {
-		fontSize: 60,
+		fontSize: 40,
 		fontWeight: "bold",
 		color: "#000000",
 		textAlign: "center",
@@ -100,13 +100,22 @@ const styles = StyleSheet.create({
 	},
 	searchBar: {
 		backgroundColor: "#ffffff",
+		width: "80%",
+		borderRadius: 25,
 	},
 	displaySection: {
 		flex: 1,
 		display: "flex",
-		backgroundColor: "#ff0000",
+		backgroundColor: "#FFF8EF",
 		width: "100%",
 		justifyContent: "center",
 		alignItems: "center",
+	},
+	searchButton: {
+		backgroundColor: "#FF0000",
+		borderRadius: 25,
+		color: "#ffffff",
+		padding: 5,
+		margin: 10,
 	},
 });

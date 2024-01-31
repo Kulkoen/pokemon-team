@@ -20,7 +20,7 @@ export default function LoginPage({}) {
 		console.log(email, password);
 		const userData = { email: email, password };
 		axios
-			.post("http://128.61.125.103:5000/login-user", userData)
+			.post("https://sore-gold-termite-tam.cyclic.app/login-user", userData)
 			.then((res) => {
 				console.log(res.data);
 				if (res.data.status == "OK") {

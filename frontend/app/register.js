@@ -27,7 +27,7 @@ export default function RegisterPage({}) {
 
 		if (nameVerify && emailVerify && passwordVerify) {
 			axios
-				.post("https://mas-firs.ue.r.appspot.com/api/register", userData)
+				.post("https://sore-gold-termite-tam.cyclic.app/register", userData)
 				.then((res) => {
 					console.log(res.data);
 					if (res.data.status == "OK") {
