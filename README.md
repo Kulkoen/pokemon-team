@@ -35,7 +35,7 @@ Pokemon Search
 In order to run the app:
 - Navigate to frontend folder
 - Install all dependencies using ```npm install``` in the terminal
-- Run ```npm start```
+- Run ```npx expo``` or ```npm start```
 - Either use a personal smartphone to scan the QR code and run from your smartphone in the Expo Go app
 - or run an emulator
 
