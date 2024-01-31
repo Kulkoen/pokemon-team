@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
 	},
 	titleSection: {
 		flexDirection: "column",
-		backgroundColor: "#83f2ff",
+		backgroundColor: "#BDE0FE",
 		width: "100%",
 		justifyContent: "center",
 		alignItems: "center",
