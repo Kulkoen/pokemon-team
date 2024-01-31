@@ -4,12 +4,14 @@ import {
 	TextInput,
 	View,
 	TouchableOpacity,
+	Alert,
 } from "react-native";
 import { useState } from "react";
 import { Link } from "expo-router";
 import axios from "axios";
 
-export default function RegisterPage({ props }) {
+export default function RegisterPage({}) {
+	// State variables that store the user input and validation
 	const [name, setName] = useState("");
 	const [nameVerify, setNameVerify] = useState(false);
 
@@ -19,14 +21,28 @@ export default function RegisterPage({ props }) {
 	const [password, setPassword] = useState("");
 	const [passwordVerify, setPasswordVerify] = useState(false);
 
+	// Sends the user data to the server using axios
 	function handleRegistration() {
 		const userData = { name: name, email, password };
-		axios
-			.post("http://172.22.4.217:5000/register", userData)
-			.then((res) => console.log(res.data))
-			.catch((e) => console.log(e));
+
+		if (nameVerify && emailVerify && passwordVerify) {
+			axios
+				.post("https://mas-firs.ue.r.appspot.com/api/register", userData)
+				.then((res) => {
+					console.log(res.data);
+					if (res.data.status == "OK") {
+						Alert.alert("Sign Up Successful");
+					} else {
+						Alert.alert(JSON.stringify(res.data));
+					}
+				})
+				.catch((e) => console.log(e));
+		} else {
+			Alert.alert("Must fill all fields");
+		}
 	}
 
+	// Validates the name input and updates the state
 	function handleName(e) {
 		const nameVar = e.nativeEvent.text;
 		setName(nameVar);
@@ -35,9 +51,8 @@ export default function RegisterPage({ props }) {
 			setNameVerify(true);
 		}
 	}
-
+	// Validates the email input and updates the state
 	function handleEmail(e) {
-		// console.log(e.nativeEvent.text);
 		const emailVar = e.nativeEvent.text;
 		setEmail(emailVar);
 		setEmailVerify(false);
@@ -46,9 +61,8 @@ export default function RegisterPage({ props }) {
 			setEmailVerify(true);
 		}
 	}
-
+	// Validates the password input and updates the state
 	function handlePass(e) {
-		// console.log(e.nativeEvent.text);
 		const passwordVar = e.nativeEvent.text;
 		setPassword(passwordVar);
 		setPasswordVerify(false);
@@ -104,7 +118,7 @@ export default function RegisterPage({ props }) {
 				<Text style={styles.loginText}>REGISTER</Text>
 			</TouchableOpacity>
 			<TouchableOpacity>
-				<Link href="/">
+				<Link href="/login">
 					<Text style={styles.inputText}>Sign In</Text>
 				</Link>
 			</TouchableOpacity>
