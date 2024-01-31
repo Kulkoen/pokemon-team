@@ -1,6 +1,6 @@
 # mas-first-program
 Keefe Oentoro
-https://github.com/Kulkoen/mas-first-program
+[https://github.com/Kulkoen/mas-first-program](https://github.gatech.edu/koentoro3/mas-first-program)
 
 ## Description
 The app simply makes you log in and lets you search up Pokemon using their names. If the name is valid, it will display the name and a pokemon sprite.
